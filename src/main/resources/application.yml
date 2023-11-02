@@ -1,0 +1,8 @@
+model:
+  vars:
+    alpha: 500
+    beta: 2
+    lambda: 2
+    sources: 10
+    devices: 10
+    requests: 20
