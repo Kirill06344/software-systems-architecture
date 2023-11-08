@@ -11,13 +11,22 @@ public class Source {
 
     private final int lambda;
 
+    private double nextGenerationTime;
+
     public Source(int lambda) {
         this.lambda = lambda;
         this.id = SOURCE_IDENTITY++;
+        nextGenerationTime = calculateIntervalBetweenRequests();
+    }
+
+    public Request generateRequest(int requestId) {
+        Request request = new Request(requestId, id, nextGenerationTime);
+        nextGenerationTime += calculateIntervalBetweenRequests();
+        return request;
     }
 
 
-    public double generateRequestTime() {
+    public double calculateIntervalBetweenRequests() {
         return -1.0 / lambda * Math.log(Math.random());
     }
 
