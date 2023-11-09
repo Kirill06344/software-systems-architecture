@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class SourceStorage {
 
-    private final List<Source> sources;
+    private final Map<Integer, Source> sources;
 
     private final EventHandler eventHandler;
 
@@ -23,18 +23,23 @@ public class SourceStorage {
 
     private int requestId;
 
-    public void generateRequestOnSource(int sourceId) {
-        Request request = sources.get(sourceId).generateRequest(requestId++);
-        eventHandler.addEvent(new RequestGenerationEvent(request, this, dispatcherInput));
-    }
 
     public void start() {
-        for (int i = 0; i < sources.size(); ++i) {
-            generateRequestOnSource(i);
+        for (Integer key : sources.keySet()) {
+            generateRequestOnSource(key);
         }
+    }
+
+    public void generateRequestOnSource(int sourceId) {
+        Request request = sources.get(sourceId).generateRequest(requestId++, sourceId);
+        generateEvent(request);
     }
 
     public Source getSourceById(int id) {
         return sources.get(id);
+    }
+
+    private void generateEvent(Request request) {
+        eventHandler.addEvent(new RequestGenerationEvent(request, this, dispatcherInput));
     }
 }
