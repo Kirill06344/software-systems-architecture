@@ -14,8 +14,8 @@ import java.io.IOException;
 public class QueuingSystemApplication {
 
     public static void main(String[] args) throws IOException {
-        ConfigurableApplicationContext context = SpringApplication.run(QueuingSystemApplication.class, args);
-        SourceStorage storage = context.getBean(SourceStorage.class);
+        final ConfigurableApplicationContext context = SpringApplication.run(QueuingSystemApplication.class, args);
+        final SourceStorage storage = context.getBean(SourceStorage.class);
 
         storage.start();
 

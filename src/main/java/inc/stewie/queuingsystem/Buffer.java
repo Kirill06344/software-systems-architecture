@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 public class Buffer {
 
     private final Request [] requests;
+
     private int size;
     private int writePointer = -1;
     private int readPointer = 0;
