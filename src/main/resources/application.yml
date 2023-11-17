@@ -1,9 +1,9 @@
 model:
   vars:
-    alpha: 500
-    beta: 2
+    alpha: 1
+    beta: 0
     lambda: 2
     sources: 10
     devices: 10
-    requests: 20
+    requests: 100
     buffer: 3

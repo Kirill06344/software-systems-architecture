@@ -1,11 +1,13 @@
 package inc.stewie.queuingsystem.events;
 
-import inc.stewie.queuingsystem.DispatcherInput;
+import inc.stewie.queuingsystem.dispatchers.DispatcherInput;
 import inc.stewie.queuingsystem.Request;
-import inc.stewie.queuingsystem.SourceStorage;
+import inc.stewie.queuingsystem.sources.SourceStorage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
+@Slf4j
 public class RequestGenerationEvent implements Event {
 
     private final Request request;
@@ -17,12 +19,8 @@ public class RequestGenerationEvent implements Event {
     @Override
     public void process() {
         sourceStorage.generateRequestOnSource(request.sourceId());
+        log.info("Request " + request.id() + " generated on source " + request.sourceId() + " at " + request.creationTime());
         dispatcherInput.processRequest(request);
-    }
-
-    @Override
-    public Request getRequest() {
-        return request;
     }
 
     @Override
@@ -30,8 +28,4 @@ public class RequestGenerationEvent implements Event {
         return request.creationTime();
     }
 
-    @Override
-    public String toString() {
-        return "Request " + request.id() + " generated on source " + request.sourceId() + " at " + request.creationTime();
-    }
 }

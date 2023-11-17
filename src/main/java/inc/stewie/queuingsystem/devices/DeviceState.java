@@ -1,4 +1,4 @@
-package inc.stewie.queuingsystem;
+package inc.stewie.queuingsystem.devices;
 
 public enum DeviceState {
     FREE,

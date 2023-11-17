@@ -1,7 +1,10 @@
-package inc.stewie.queuingsystem;
+package inc.stewie.queuingsystem.sources;
 
+import inc.stewie.queuingsystem.dispatchers.DispatcherInput;
+import inc.stewie.queuingsystem.Request;
 import inc.stewie.queuingsystem.events.EventHandler;
 import inc.stewie.queuingsystem.events.RequestGenerationEvent;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,25 +21,25 @@ public class SourceStorage {
 
     private final DispatcherInput dispatcherInput;
 
+    @Getter
     @Value("${model.vars.requests}")
     private int requestAmount;
 
-    private int requestId;
-
 
     public void start() {
-        for (Integer key : sources.keySet()) {
-            generateRequestOnSource(key);
+        for (var entry : sources.entrySet()) {
+            Request request = entry.getValue().generateRequest(entry.getKey());
+            generateEvent(request);
+            requestAmount--;
         }
     }
 
     public void generateRequestOnSource(int sourceId) {
-        Request request = sources.get(sourceId).generateRequest(requestId++, sourceId);
-        generateEvent(request);
-    }
-
-    public Source getSourceById(int id) {
-        return sources.get(id);
+        if (requestAmount > 0) {
+            Request request = sources.get(sourceId).generateRequest(sourceId);
+            generateEvent(request);
+            requestAmount--;
+        }
     }
 
     private void generateEvent(Request request) {
