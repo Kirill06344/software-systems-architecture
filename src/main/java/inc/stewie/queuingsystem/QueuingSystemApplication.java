@@ -11,6 +11,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class QueuingSystemApplication {
 
+
     public static void main(String[] args) {
         final ConfigurableApplicationContext context = SpringApplication.run(QueuingSystemApplication.class, args);
         Simulation simulation = context.getBean(Simulation.class);

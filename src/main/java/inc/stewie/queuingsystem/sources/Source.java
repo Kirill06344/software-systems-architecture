@@ -14,7 +14,6 @@ public class Source {
 
     public Source() {
         nextGenerationTime = ProbabilityDistributions.poissonDistribution();
-        System.out.println(nextGenerationTime);
     }
 
     public Request generateRequest(int sourceId) {

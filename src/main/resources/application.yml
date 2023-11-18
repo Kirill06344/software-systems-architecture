@@ -1,3 +1,12 @@
+spring:
+  datasource:
+    name: ${SPRING_DATASOURCE_USERNAME:stewie}
+    password: ${SPRING_DATASOURCE_PASSWORD:stewie}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/system_info}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.sql
+
+
 model:
   vars:
     alpha: 1
