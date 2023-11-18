@@ -3,15 +3,18 @@ package inc.stewie.queuingsystem;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 @Component
 public class Buffer {
 
     private final Request [] requests;
 
+    private final Queue<Integer> queue = new LinkedList<>();
+
     private int size;
     private int writePointer = 0;
-
-    private int readPointer = 0;
 
     public Buffer(@Value("${model.vars.buffer}") int capacity) {
         requests = new Request[capacity];
@@ -31,26 +34,31 @@ public class Buffer {
         int inx = getFreePlace(writePointer);
         requests[inx] = request;
         size++;
+        queue.add(inx);
         writePointer = (inx + 1) % requests.length;
         return inx;
     }
 
     public Request poll() {
-        if (isEmpty()) {
+        if (queue.isEmpty()) {
             return null;
         }
 
-        Request request = requests[readPointer];
-        requests[readPointer] = null;
-        readPointer = (readPointer + 1) % requests.length;
+        int readIndex = queue.poll();
+        Request request = requests[readIndex];
+        requests[readIndex] = null;
         size--;
         return request;
     }
 
     public Request refuseRequest(Request request) {
-        Request refusedRequest = requests[readPointer];
-        requests[readPointer] = request;
-        readPointer = (readPointer + 1) % requests.length;
+        if (queue.isEmpty()) {
+            return null;
+        }
+        int readIndex = queue.poll();
+        Request refusedRequest = requests[readIndex];
+        requests[readIndex] = request;
+        queue.add(readIndex);
         return refusedRequest;
     }
 

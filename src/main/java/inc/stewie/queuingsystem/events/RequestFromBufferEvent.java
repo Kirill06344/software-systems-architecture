@@ -26,6 +26,9 @@ public class RequestFromBufferEvent implements Event {
 
         Request request = buffer.poll();
         int deviceId = deviceStorage.processRequest(request, time);
+        if (request == null) {
+            System.out.println("sa");
+        }
         log.info("Device " + deviceId + " took for processing request " + request.id() + " at " + time);
     }
 
