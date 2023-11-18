@@ -4,8 +4,6 @@ import inc.stewie.queuingsystem.ProbabilityDistributions;
 import inc.stewie.queuingsystem.Request;
 import lombok.Getter;
 
-import java.util.UUID;
-
 @Getter
 public class Source {
 
@@ -13,8 +11,10 @@ public class Source {
 
     private double nextGenerationTime;
 
+
     public Source() {
         nextGenerationTime = ProbabilityDistributions.poissonDistribution();
+        System.out.println(nextGenerationTime);
     }
 
     public Request generateRequest(int sourceId) {
