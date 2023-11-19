@@ -20,7 +20,7 @@ public class SourceConfiguration {
     public Map<Integer, Source> sources() {
         Map<Integer, Source> sources = new HashMap<>();
         for (int i = 0; i < sourcesAmount; ++i) {
-            sources.put(i, new Source());
+            sources.put(i + 1, new Source());
         }
         return sources;
     }

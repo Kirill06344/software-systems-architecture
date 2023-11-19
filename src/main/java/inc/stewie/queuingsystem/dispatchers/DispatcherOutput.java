@@ -19,7 +19,9 @@ public class DispatcherOutput {
 
     public void createEvent() {
         double time = eventHandler.getCurrentTime() + imitateDelay();
-        eventHandler.addEvent(new RequestFromBufferEvent(time, buffer, deviceStorage));
+        if (deviceStorage.hasFreeDevice() && !buffer.isEmpty()) {
+            eventHandler.addEvent(new RequestFromBufferEvent(time, buffer, deviceStorage));
+        }
     }
 
     private double imitateDelay() {

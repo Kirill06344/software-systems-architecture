@@ -8,11 +8,10 @@ create table sources (
     refuse_amount int not null default 0
 );
 
-create type device_state as enum('FREE', 'BUSY');
-
 create table devices (
   id int primary key,
-  state device_state not null default 'FREE',
+  time real not null default 0.0,
+  state text not null default 'FREE',
   request_amount int not null default 0
 );
 

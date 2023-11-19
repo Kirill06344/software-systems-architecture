@@ -4,6 +4,7 @@ import inc.stewie.queuingsystem.dispatchers.DispatcherInput;
 import inc.stewie.queuingsystem.Request;
 import inc.stewie.queuingsystem.events.EventHandler;
 import inc.stewie.queuingsystem.events.RequestGenerationEvent;
+import inc.stewie.queuingsystem.repository.SourceRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

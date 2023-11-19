@@ -23,7 +23,7 @@ public class Device {
         return endTime;
     }
 
-    public void freeDevice() {
+    public void free() {
         state = DeviceState.FREE;
     }
 
