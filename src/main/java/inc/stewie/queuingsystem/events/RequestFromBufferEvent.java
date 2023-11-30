@@ -3,15 +3,8 @@ package inc.stewie.queuingsystem.events;
 import inc.stewie.queuingsystem.Buffer;
 import inc.stewie.queuingsystem.Request;
 import inc.stewie.queuingsystem.devices.DeviceStorage;
-import inc.stewie.queuingsystem.entity.BufferEntity;
-import inc.stewie.queuingsystem.entity.DeviceEntity;
-import inc.stewie.queuingsystem.repository.BufferRepository;
-import inc.stewie.queuingsystem.repository.DeviceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Optional;
-
 
 @RequiredArgsConstructor
 @Slf4j
