@@ -9,10 +9,10 @@ spring:
 
 model:
   vars:
-    alpha: 1
-    beta: 0
-    lambda: 5
-    sources: 15
-    devices: 3
-    requests: 2000
+    alpha: 0
+    beta: 1
+    lambda: 3
+    sources: 10
+    devices: 10
+    requests: 1000
     buffer: 10
