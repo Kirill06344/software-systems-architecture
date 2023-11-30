@@ -36,7 +36,7 @@ public class StatisticsService {
     }
 
     public void updateBufferPosition(int position, Request request, double time) {
-        BufferEntity bufferEntity = bufferRepository.findById(position).orElse(new BufferEntity(position + 1));
+        BufferEntity bufferEntity = bufferRepository.findById(position + 1).orElse(new BufferEntity(position + 1));
         bufferEntity.updatePosition(request, time);
         bufferRepository.save(bufferEntity);
     }

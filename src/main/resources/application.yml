@@ -14,5 +14,5 @@ model:
     lambda: 3
     sources: 10
     devices: 10
-    requests: 1000
+    requests: 500
     buffer: 10
