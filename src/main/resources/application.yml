@@ -9,8 +9,8 @@ spring:
 
 model:
   vars:
-    alpha: 1
-    beta: 0
+    alpha: 0
+    beta: 1
     lambda: 3
     sources: 10
     devices: 10

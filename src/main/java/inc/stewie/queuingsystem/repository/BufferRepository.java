@@ -1,12 +1,17 @@
 package inc.stewie.queuingsystem.repository;
 
-import ch.qos.logback.core.model.INamedModel;
 import inc.stewie.queuingsystem.entity.BufferEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
-import java.util.Optional;
 
 public interface BufferRepository extends JpaRepository<BufferEntity, Integer> {
 
-    Optional<BufferEntity> findBufferEntityByRequestNumber(int requestNumber);
+    @Modifying
+    @Transactional
+    @Query(value = "TRUNCATE TABLE buffer", nativeQuery = true)
+    void truncateTable();
+
 }
