@@ -45,7 +45,7 @@ public class Buffer {
 
         int inx = getFreePlace(writePointer);
         requests[inx] = request;
-        updateBufferPosition(inx, request, time);
+        updateBufferPosition(inx + 1, request, time);
         size++;
         queue.add(inx);
         writePointer = (inx + 1) % requests.length;
@@ -60,7 +60,7 @@ public class Buffer {
         int readIndex = queue.poll();
         Request request = requests[readIndex];
         requests[readIndex] = null;
-        removeRequestFromBuffer(readIndex, time);
+        removeRequestFromBuffer(readIndex + 1, time);
         size--;
         return request;
     }
@@ -101,13 +101,13 @@ public class Buffer {
     }
 
     private void updateBufferPosition(int position, Request request, double time) {
-        BufferEntity bufferEntity = bufferRepository.findById(position).orElse(new BufferEntity(position + 1));
+        BufferEntity bufferEntity = bufferRepository.findById(position).orElse(new BufferEntity(position));
         bufferEntity.updatePosition(request, time);
         bufferRepository.save(bufferEntity);
     }
 
     private void removeRequestFromBuffer(int position, double time) {
-        Optional<BufferEntity> bufferEntity = bufferRepository.findById(position + 1);
+        Optional<BufferEntity> bufferEntity = bufferRepository.findById(position);
         if (bufferEntity.isEmpty()) {
             return;
         }
